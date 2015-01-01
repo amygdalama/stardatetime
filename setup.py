@@ -1,11 +1,11 @@
 from setuptools import setup
 
-setup(name='stardate',
+setup(name='stardatetime',
       version='0.1',
       description='datetime for the next generation',
-      url='https://github.com/amygdalama/stardate',
+      url='https://github.com/amygdalama/stardatetime',
       author='Amy Hanlon',
       license='MIT',
-      packages=['stardate'],
+      packages=['stardatetime'],
       zip_safe=False)
 
