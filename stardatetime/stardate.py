@@ -7,8 +7,11 @@ class StarDate(date):
     BASE_YEAR = 2323
 
     def __init__(self, *args, **kwargs):
+        year = kwargs.get('year', args[0])
+        month = kwargs.get('month', args[1])
+        day = kwargs.get('day', args[2])
         self.stardate = conversion.earth_date_to_star_date(year, month, day)
-        super(Stardate, self).__init__(*args, **kwargs)
+        super(StarDate, self).__init__(*args, **kwargs)
 
     def __repr__(self):
         return str(self.stardate)
