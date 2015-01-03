@@ -1,3 +1,4 @@
+"""Helper functions for converting from earth time to star time."""
 from datetime import date
 
 
