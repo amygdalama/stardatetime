@@ -125,7 +125,30 @@ class StarTime(time):
 
 class StarDateTime(datetime):
     """Overrides datetime.datetime to convert to Star Trek time."""
-    pass
+
+    def __init__(self, year, month, day, hour=None, minute=None,
+                 second=None, microsecond=None, *args, **kwargs):
+        super(StarDateTime, self).__init__(year, month, day, hour,
+                                           minute, second,
+                                           microsecond, *args,
+                                           **kwargs)
+        self.stardatetime = self._convert_to_stardatetime()
+
+    def __repr__(self):
+        return "StarDateTime(%.4f)" % self.stardatetime
+
+    def date(self):
+        earth_date = super(StarDateTime, self).date()
+        return StarDate.from_date(earth_date)
+
+    def time(self):
+        earth_time = super(StarDateTime, self).time()
+        return StarTime.from_time(earth_time)
+
+    def _convert_to_stardatetime(self):
+        stardate = self.date().stardate
+        startime = self.time().startime
+        return stardate + startime
 
 
 class StarTimeDelta(timedelta):
