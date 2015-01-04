@@ -69,6 +69,16 @@ class StarDate(date):
                              microseconds=earth_delta.microseconds)
 
 
+class StarTime(time):
+    """Overrides datetime.time to convert to Star Trek time."""
+    pass
+
+
+class StarDateTime(datetime):
+    """Overrides datetime.datetime to convert to Star Trek time."""
+    pass
+
+
 class StarTimeDelta(timedelta):
     """Overrides datetime.timedelta to convert to Star Time.
 
