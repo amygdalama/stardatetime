@@ -11,7 +11,7 @@ Classes:
     StarDate -- date objects converted to Star Trek time
     StarTime -- time objects converted to Star Trek time
     StarDateTime -- datetime objects converted to Star Trek time
-    StarTimeDelta -- timedelta objects converted to StarTrek time
+    StarTimeDelta -- timedelta objects converted to Star Trek time
 """
 from __future__ import absolute_import
 from datetime import date, datetime, time, timedelta
@@ -20,7 +20,7 @@ from stardatetime import conversion
 
 
 class StarDate(date):
-    """Inherits from datetime.date to convert to Star Time.
+    """Inherits from datetime.date to convert to Star Trek time.
 
     Extends datetime.date.__init__ to add a stardate
     attribute.
@@ -79,7 +79,7 @@ class StarDateTime(datetime):
 
 
 class StarTimeDelta(timedelta):
-    """Overrides datetime.timedelta to convert to Star Time.
+    """Overrides datetime.timedelta to convert to Star Trek time.
 
     Overrides datetime.timedelta.__repr__ to return the
     difference in Star time rather than Earth time.
