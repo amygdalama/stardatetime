@@ -180,6 +180,14 @@ class StarDateTime(datetime.datetime):
         startime = self.time().startime
         return stardate + startime
 
+    @classmethod
+    def from_datetime(cls, datetime_):
+        """Create a StarDateTime object from a datetime object."""
+        return cls(year=datetime_.year, month=datetime_.month,
+                   day=datetime_.day, hour=datetime_.hour,
+                   minute=datetime_.minute, second=datetime_.second,
+                   microsecond=datetime_.microsecond)
+
 
 class StarTimeDelta(datetime.timedelta):
     """Overrides datetime.timedelta to convert to Star Trek time.
