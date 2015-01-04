@@ -80,7 +80,36 @@ class StarDate(date):
 
 class StarTime(time):
     """Overrides datetime.time to convert to Star Trek time."""
-    pass
+
+    MICROSECONDS_PER_YEAR = 365 * 24 * 60 * 60 * 1000000
+
+    def __init__(self, hour=0, minute=0, second=0, microsecond=0,
+                 *args, **kwargs):
+        """Extends the __init__ of datetime.time.
+
+        Args:
+            hour -- integer in the range 0 <= hour < 24
+            minute -- integer in the range 0 <= minute < 60
+            second -- integer in the range 0 <= second < 60
+            microsecond -- integer in the range 0 <= microsecond < 1000000
+
+        Raises:
+            ValueError -- if hour, minute, second, or microsecond are
+                outside of their valid ranges specified above
+        """
+        super(StarTime, self).__init__(hour, minute, second, microsecond,
+                                       *args, **kwargs)
+        self.startime = self._convert_to_stardatetime()
+
+    def __repr__(self):
+        return "StarTime(%.4f)" % self.startime
+
+    def _convert_to_stardatetime(self):
+        """Converts an Earth time to a Star Trek time."""
+        total_minutes = self.minute + self.hour * 60
+        total_seconds = self.second + total_minutes * 60
+        total_microseconds = self.microsecond + total_seconds * 1000000
+        return total_microseconds / self.MICROSECONDS_PER_YEAR * 1000
 
 
 class StarDateTime(datetime):
