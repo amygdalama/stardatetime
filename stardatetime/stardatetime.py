@@ -104,12 +104,12 @@ class StarTime(time):
         """
         super(StarTime, self).__init__(hour, minute, second, microsecond,
                                        *args, **kwargs)
-        self.startime = self._convert_to_stardatetime()
+        self.startime = self._convert_to_startime()
 
     def __repr__(self):
         return "StarTime(%.4f)" % self.startime
 
-    def _convert_to_stardatetime(self):
+    def _convert_to_startime(self):
         """Converts an Earth time to a Star Trek time."""
         total_minutes = self.minute + self.hour * 60
         total_seconds = self.second + total_minutes * 60
