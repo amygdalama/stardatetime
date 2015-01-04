@@ -54,7 +54,7 @@ class StarDate(date):
                 or are outside their valid ranges specified above
         """
         super(StarDate, self).__init__(year, month, day)
-        self.stardate = self._convert_to_stardate()
+        self.stardate = self._calculate_stardate()
 
     def __repr__(self):
         """Overrides datetime.date.__repr__ to return the stardate."""
@@ -67,7 +67,7 @@ class StarDate(date):
                              seconds=earth_delta.seconds,
                              microseconds=earth_delta.microseconds)
 
-    def _convert_to_stardate(self):
+    def _calculate_stardate(self):
         """Converts an Earth date to a Star Trek date."""
         star_year = (self.year - self.BASE_YEAR) * 1000
         first_date_of_year = date(year=self.year, month=1, day=1)
@@ -102,12 +102,12 @@ class StarTime(time):
         """
         super(StarTime, self).__init__(hour, minute, second, microsecond,
                                        *args, **kwargs)
-        self.startime = self._convert_to_startime()
+        self.startime = self._calculate_startime()
 
     def __repr__(self):
         return "StarTime(%.4f)" % self.startime
 
-    def _convert_to_startime(self):
+    def _calculate_startime(self):
         """Converts an Earth time to a Star Trek time."""
         total_minutes = self.minute + self.hour * 60
         total_seconds = self.second + total_minutes * 60
@@ -147,7 +147,7 @@ class StarDateTime(datetime):
                                            minute, second,
                                            microsecond, *args,
                                            **kwargs)
-        self.stardatetime = self._convert_to_stardatetime()
+        self.stardatetime = self._calculate_stardatetime()
 
     def __repr__(self):
         return "StarDateTime(%.4f)" % self.stardatetime
@@ -174,7 +174,8 @@ class StarDateTime(datetime):
         earth_time = super(StarDateTime, self).time()
         return StarTime.from_time(earth_time)
 
-    def _convert_to_stardatetime(self):
+    def _calculate_stardatetime(self):
+        """Calculates the stardatetime."""
         stardate = self.date().stardate
         startime = self.time().startime
         return stardate + startime
