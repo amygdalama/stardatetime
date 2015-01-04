@@ -126,6 +126,23 @@ class StarDateTime(datetime):
 
     def __init__(self, year, month, day, hour=None, minute=None,
                  second=None, microsecond=None, *args, **kwargs):
+        """Extends the __init__ of datetime.
+
+        Args:
+            year -- integer in the range 1 <= year <= 9999
+            month -- integer in the range 1 <= month <= 12
+            day -- integer in the range 1 <= day <= last day in
+                given month, year
+            hour -- integer in the range 0 <= hour < 24
+            minute -- integer in the range 0 <= minute < 60
+            second -- integer in the range 0 <= second < 60
+            microsecond -- integer in the range 0 <= microsecond < 1000000
+
+        Raises:
+            ValueError -- if year, month, day, hour, minute,
+                second, or microsecond are outside of their
+                valid ranges specified above
+        """
         super(StarDateTime, self).__init__(year, month, day, hour,
                                            minute, second,
                                            microsecond, *args,
@@ -136,10 +153,24 @@ class StarDateTime(datetime):
         return "StarDateTime(%.4f)" % self.stardatetime
 
     def date(self):
+        """Overrides datetime.date to return StarDate.
+
+        Returns:
+            StarDate object with same year, month, day
+                as self.year, self.month, self.day
+        """
         earth_date = super(StarDateTime, self).date()
         return StarDate.from_date(earth_date)
 
     def time(self):
+        """Overrides datetime.time to return StarTime.
+
+        Returns:
+            StarTime object with same hour, minute,
+                second, microsecond as self.hour,
+                self.minute, self.second,
+                self.microsecond
+        """
         earth_time = super(StarDateTime, self).time()
         return StarTime.from_time(earth_time)
 
