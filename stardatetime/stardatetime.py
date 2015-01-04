@@ -20,6 +20,9 @@ import datetime
 from stardatetime import conversion
 
 
+_MICROSECONDS_PER_YEAR = 365 * 24 * 60 * 60 * 1000000
+
+
 class StarDate(datetime.date):
     """Inherits from datetime.date to convert to Star Trek time.
 
@@ -84,8 +87,6 @@ class StarDate(datetime.date):
 class StarTime(datetime.time):
     """Overrides datetime.time to convert to Star Trek time."""
 
-    MICROSECONDS_PER_YEAR = 365 * 24 * 60 * 60 * 1000000
-
     def __init__(self, hour=0, minute=0, second=0, microsecond=0,
                  *args, **kwargs):
         """Extends the __init__ of datetime.time.
@@ -118,7 +119,7 @@ class StarTime(datetime.time):
         total_minutes = self.minute + self.hour * 60
         total_seconds = self.second + total_minutes * 60
         total_microseconds = self.microsecond + total_seconds * 1000000
-        return total_microseconds / self.MICROSECONDS_PER_YEAR * 1000
+        return total_microseconds / _MICROSECONDS_PER_YEAR * 1000
 
     @classmethod
     def from_time(cls, time):
@@ -222,4 +223,6 @@ class StarTimeDelta(datetime.timedelta):
         return "StarTimeDelta(%.4f)" % self.startimedelta
 
     def _calculate_startimedelta(self):
-        return self.days / 365 * 1000
+        total_seconds = self.seconds + self.days * 24 * 60 * 60
+        total_microseconds = self.microseconds + total_seconds * 1000000
+        return total_microseconds / _MICROSECONDS_PER_YEAR * 1000
