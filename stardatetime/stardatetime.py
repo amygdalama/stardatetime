@@ -14,10 +14,9 @@ Classes:
     StarTimeDelta -- timedelta objects converted to StarTrek time
 """
 from __future__ import absolute_import
-
 from datetime import date, datetime, time, timedelta
 
-from datetime import conversion
+from stardatetime import conversion
 
 
 class StarDate(date):
