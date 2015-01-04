@@ -213,6 +213,13 @@ class StarTimeDelta(datetime.timedelta):
     rounding to four decimal places.
     """
 
+    def __init__(self, *args, **kwargs):
+        super(StarTimeDelta, self).__init__(*args, **kwargs)
+        self.startimedelta = self._calculate_startimedelta()
+
     def __repr__(self):
         """Overrides datetime.timedelta__repr__ to return Star time delta."""
-        return str(round(self.days / 365.0 * 1000, 4))
+        return "StarTimeDelta(%.4f)" % self.startimedelta
+
+    def _calculate_startimedelta(self):
+        return self.days / 365 * 1000
