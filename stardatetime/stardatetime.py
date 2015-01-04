@@ -44,12 +44,10 @@ class StarDate(date):
         """Extends the __init__ of datetime.date.
 
         Args:
-            year -- Earth year, acceptable values are integers
-                between 0 and 9999
-            month -- Earth month, acceptable values are integers
-                between 1 and 12
-            day -- Earth day, acceptable values are integers
-                between 1 and the last valid day of the month
+            year -- integer in the range 1 <= year <= 9999
+            month -- integer in the range 1 <= month <= 12
+            day -- integer in the range 1 <= day <= last day in
+                given month, year
 
         Raises:
             ValueError -- if year, month, or day are non-integers
