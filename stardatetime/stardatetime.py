@@ -107,6 +107,12 @@ class StarTime(datetime.time):
     def __repr__(self):
         return "StarTime(%.4f)" % self.startime
 
+    def __sub__(self, startime):
+        """Overrides datetime.time.__sub__ to return a StarTimeDelta."""
+        earth_delta = super(StarTime, self).__sub__(startime)
+        return StarTimeDelta(seconds=earth_delta.seconds,
+                             microseconds=earth_delta.microseconds)
+
     def _calculate_startime(self):
         """Converts an Earth time to a Star Trek time."""
         total_minutes = self.minute + self.hour * 60
@@ -151,6 +157,13 @@ class StarDateTime(datetime.datetime):
 
     def __repr__(self):
         return "StarDateTime(%.4f)" % self.stardatetime
+
+    def __sub__(self, stardatetime):
+        """Overrides datetime.datetime.__sub__ to return a StarTimeDelta."""
+        earth_delta = super(StarDateTime, self).__sub__(stardatetime)
+        return StarTimeDelta(days=earth_delta.days,
+                             seconds=earth_delta.seconds,
+                             microseconds=earth_delta.microseconds)
 
     def date(self):
         """Overrides datetime.date to return StarDate.
