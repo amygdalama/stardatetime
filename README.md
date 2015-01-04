@@ -28,8 +28,6 @@ Create from a `datetime` object:
 StarDateTime(-307992.1705)
 ```
 
-# Documentation
-
 # Installation
 
 ```bash
