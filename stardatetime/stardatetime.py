@@ -77,6 +77,11 @@ class StarDate(date):
         star_day = days_elapsed_in_year.days / 365 * 1000
         return star_year + star_day
 
+    @classmethod
+    def from_date(cls, date):
+        """Creates a StarDate instance from a datetime.date object."""
+        return cls(year=date.year, month=date.month, day=date.day)
+
 
 class StarTime(time):
     """Overrides datetime.time to convert to Star Trek time."""
@@ -110,6 +115,12 @@ class StarTime(time):
         total_seconds = self.second + total_minutes * 60
         total_microseconds = self.microsecond + total_seconds * 1000000
         return total_microseconds / self.MICROSECONDS_PER_YEAR * 1000
+
+    @classmethod
+    def from_time(cls, time):
+        """Creates a StarTime instance from a datetime.time object."""
+        return cls(hour=time.hour, minute=time.minute, second=time.second,
+                   microsecond=time.microsecond)
 
 
 class StarDateTime(datetime):
