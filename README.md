@@ -6,35 +6,41 @@ stardatetime provides datetime objects converted to Star Trek time.
 
 Get the current time:
 
-:::pycon
+```pycon
 >>> from stardatetime import StarDateTime
 >>> StarDateTime.now()
+```
 
 Specify a time in Earth time:
 
-:::pycon
+```pycon
 >>> StarDateTime(year=2015, month=1, day=1,
                  hour=1, minute=1, second=1)
+```
 
 Specify a time in Star Trek time:
 
-:::pycon
+```pycon
 >>> StarDateTime.from_stardatetime(stardatetime=41367.4)
+```
 
 Create from a `datetime` object:
 
-:::pycon
+```pycon
 >>> from datetime import datetime
 >>> StarDateTime.from_datetime(datetime.now())
+```
 
 Calculate deltas:
 
-:::pycon
+```pycon
 >>> StarDateTime.from_stardatetime(41367.4) - StarDateTime.now()
+```
 
 # Documentation
 
 # Installation
 
-:::console
+```console
 $ pip install stardatetime
+```
