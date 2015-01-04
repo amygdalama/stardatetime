@@ -17,8 +17,6 @@ from __future__ import absolute_import
 from __future__ import division
 import datetime
 
-from stardatetime import conversion
-
 
 _MICROSECONDS_PER_YEAR = 365 * 24 * 60 * 60 * 1000000
 
