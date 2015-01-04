@@ -15,12 +15,12 @@ Classes:
 """
 from __future__ import absolute_import
 from __future__ import division
-from datetime import date, datetime, time, timedelta
+import datetime
 
 from stardatetime import conversion
 
 
-class StarDate(date):
+class StarDate(datetime.date):
     """Inherits from datetime.date to convert to Star Trek time.
 
     Extends datetime.date.__init__ to add a stardate
@@ -70,7 +70,7 @@ class StarDate(date):
     def _calculate_stardate(self):
         """Converts an Earth date to a Star Trek date."""
         star_year = (self.year - self.BASE_YEAR) * 1000
-        first_date_of_year = date(year=self.year, month=1, day=1)
+        first_date_of_year = datetime.date(year=self.year, month=1, day=1)
         days_elapsed_in_year = self - first_date_of_year
         star_day = days_elapsed_in_year.days / 365 * 1000
         return star_year + star_day
@@ -81,7 +81,7 @@ class StarDate(date):
         return cls(year=date.year, month=date.month, day=date.day)
 
 
-class StarTime(time):
+class StarTime(datetime.time):
     """Overrides datetime.time to convert to Star Trek time."""
 
     MICROSECONDS_PER_YEAR = 365 * 24 * 60 * 60 * 1000000
@@ -121,7 +121,7 @@ class StarTime(time):
                    microsecond=time.microsecond)
 
 
-class StarDateTime(datetime):
+class StarDateTime(datetime.datetime):
     """Overrides datetime.datetime to convert to Star Trek time."""
 
     def __init__(self, year, month, day, hour=None, minute=None,
@@ -181,7 +181,7 @@ class StarDateTime(datetime):
         return stardate + startime
 
 
-class StarTimeDelta(timedelta):
+class StarTimeDelta(datetime.timedelta):
     """Overrides datetime.timedelta to convert to Star Trek time.
 
     Overrides datetime.timedelta.__repr__ to return the
