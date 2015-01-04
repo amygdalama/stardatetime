@@ -14,6 +14,7 @@ Classes:
     StarTimeDelta -- timedelta objects converted to Star Trek time
 """
 from __future__ import absolute_import
+from __future__ import division
 from datetime import date, datetime, time, timedelta
 
 from stardatetime import conversion
@@ -37,6 +38,7 @@ class StarDate(date):
         stardate -- integer representing the stardate
             associated with midnight of the date provided
     """
+    BASE_YEAR = 2323
 
     def __init__(self, year, month, day):
         """Extends the __init__ of datetime.date.
@@ -53,12 +55,12 @@ class StarDate(date):
             ValueError -- if year, month, or day are non-integers
                 or are outside their valid ranges specified above
         """
-        self.stardate = conversion.earth_date_to_star_date(year, month, day)
         super(StarDate, self).__init__(year, month, day)
+        self.stardate = self._convert_to_stardate()
 
     def __repr__(self):
         """Overrides datetime.date.__repr__ to return the stardate."""
-        return str(self.stardate)
+        return "StarDate(%.1f)" % self.stardate
 
     def __sub__(self, stardate):
         """Overrides datetime.date.__sub__ to return a StarTimeDelta."""
@@ -66,6 +68,14 @@ class StarDate(date):
         return StarTimeDelta(days=earth_delta.days,
                              seconds=earth_delta.seconds,
                              microseconds=earth_delta.microseconds)
+
+    def _convert_to_stardate(self):
+        """Converts an Earth date to a Star Trek date."""
+        star_year = (self.year - self.BASE_YEAR) * 1000
+        first_date_of_year = date(year=self.year, month=1, day=1)
+        days_elapsed_in_year = self - first_date_of_year
+        star_day = days_elapsed_in_year.days / 365 * 1000
+        return star_year + star_day
 
 
 class StarTime(time):
